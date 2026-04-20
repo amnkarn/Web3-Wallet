@@ -13,11 +13,15 @@ export function SolanaWallet({ mnemonic }: SolanaWalletProps) {
     const [publicKeys, setPublicKeys] = useState<PublicKey[]>([]);
 
     function addWallet(): void {
+        //create a big Uint8Array of number using mnemonic(words) 
         const seed = mnemonicToSeedSync(mnemonic);
-        const path = `m/44'/501'/${currentIndex}'/0'`;
+        //console.log(seed);
+        
+        const path = `m/44'/501'/${currentIndex}'/0'`; //'501' is solana code
         const derivedSeed = derivePath(path, seed.toString("hex")).key;
         const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
         const keypair = Keypair.fromSecretKey(secret);
+        console.log(keypair)
 
         setCurrentIndex(prev => prev + 1);
         setPublicKeys(prevKeys => [...prevKeys, keypair.publicKey]);

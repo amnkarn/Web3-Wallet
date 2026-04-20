@@ -9,7 +9,9 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     async function createPhrase() {
-        const mn = await generateMnemonic();
+        const mn = await generateMnemonic(); //some random words
+        //console.log(mn);
+        
         setMnemonic(mn);
         setShowPopup(true);
     }

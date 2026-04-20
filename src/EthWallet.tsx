@@ -9,7 +9,7 @@ interface SolanaWalletProps {
 
 export function EthWallet({ mnemonic }: SolanaWalletProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [addresses, setAddresses] = useState([]);
+    const [addresses, setAddresses] = useState<string[]>([]); //store the wallet addresses
 
     async function addWallet() {
         const seed = await mnemonicToSeed(mnemonic);
@@ -18,9 +18,8 @@ export function EthWallet({ mnemonic }: SolanaWalletProps) {
         const child = hdNode.derivePath(derivationPath);
         const privateKey = child.privateKey;
         const wallet = new Wallet(privateKey);
-        setCurrentIndex(currentIndex + 1);
 
-        //@ts-ignore
+        setCurrentIndex(currentIndex + 1);
         setAddresses([...addresses, wallet.address]);
     }
 
